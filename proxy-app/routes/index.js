@@ -21,7 +21,7 @@ proxy.on('proxyReq', (proxyReq, req) => {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
- res.send("KEKES");
+ res.send("TEST PROXY");
 });
 
 /* route apple callbacks */
@@ -30,7 +30,7 @@ router.post('/', jsonParser, async (req, res, next) => {
   try {
     console.log("FIRST PROXY");
     proxy.web(req, res, {
-      target: 'http://localhost:3001/v2'
+      target: process.env['FIRST_URL']
     }, next); 
   } catch (error) {
     errors.push(error);
@@ -38,7 +38,7 @@ router.post('/', jsonParser, async (req, res, next) => {
   try {
     console.log("SECOND PROXY");
     proxy.web(req, res, {
-      target: 'https://api.apphud.com/appstore/app_voqFxa5PvbYTeK4AW2BpEGJ4hzbHs1'
+      target: process.env['SECOND_URL']
     }, next); 
   } catch (error) {
     errors.push(error);
